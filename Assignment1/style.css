@@ -47,9 +47,6 @@ a{
     padding-right: 20px; /* Add padding to align properly */
 }
 
-#search {
-    /* padding: 10px; */
-}
 
 #search svg , #account svg, #cart svg{
     width: 24px;
