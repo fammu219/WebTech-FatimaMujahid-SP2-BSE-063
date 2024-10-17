@@ -1,0 +1,32 @@
+.icon-size {
+    stroke: #000;
+    width: 24px;
+    height: 24px;
+}
+
+.menu-svg svg {
+    width: 24px;
+    height: 24px;
+    color: #000;
+}
+
+.social-icons .social-icon { 
+    font-size: 24px;
+    color: #515151;
+}
+.social-icons .social-icon:hover {
+    color: #000;
+}
+
+.newsletter-form {
+    border-bottom: 1px solid #333;
+}
+
+.newsletter-form input {
+    border: none;
+}
+
+.newsletter-form button {
+    background: none;
+    border: none;
+}
