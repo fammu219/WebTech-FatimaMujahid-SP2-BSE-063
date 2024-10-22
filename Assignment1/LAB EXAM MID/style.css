@@ -1,0 +1,126 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+.resume-container {
+    max-width: 800px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    position: relative; 
+    padding: 20px; 
+    background-color: #f4f4f4;
+}
+
+.header-image {
+    width: 150px; 
+    height: auto; 
+    transition: transform 0.3s; 
+}
+
+.intro {
+    display: none; 
+    position: absolute; 
+    top: -40px; 
+    left: 20px; 
+    padding: 10px; 
+    background-color: rgba(255, 255, 255, 0.9); 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+}
+
+
+
+.image-container:hover .introduction {
+    opacity: 1; 
+}
+
+.image-container:hover .hover-image {
+    opacity: 0.7; 
+}
+
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+    color:aqua;
+}
+
+header h1 {
+    font-size: 2em;
+    margin-bottom: 5px;
+    color:darkblue;
+
+}
+
+
+header p {
+    font-size: 1.2em;
+    color: white;
+    
+}
+
+h2 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #333;
+    padding-bottom: 5px;
+    color:darkblue;
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+.job, .education {
+    margin-bottom: 15px;
+    
+}
+
+.job p  {
+    margin: 5px 0;
+    color:darkblue;
+}
+
+.education p {
+    margin: 5px 0;
+}
+
+.dates {
+    font-weight: bold;
+    color:darkblue;
+}
+
+.references p {
+    font-style: italic;
+}
+
+p {
+    color: #444;
+    margin-bottom: 10px;
+}
+
+strong {
+    color: #000;
+}
