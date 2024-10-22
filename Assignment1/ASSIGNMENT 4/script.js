@@ -1,6 +1,5 @@
 const apiUrl = "https://usmanlive.com/wp-json/api/stories"; // Replace with your API endpoint
 
-// Fetch and display stories
 function displayStories() {
   $.ajax({
     url: apiUrl,
@@ -16,7 +15,6 @@ function displayStories() {
   });
 }
 
-// Render the story list in the DOM
 function renderStoryList(data) {
   const storyList = $("#storyList");
   storyList.empty();
@@ -44,7 +42,7 @@ function renderStoryList(data) {
   });
 }
 
-// Handle form submission for adding or updating stories
+
 function handleFormSubmission(event) {
   event.preventDefault();
 
@@ -52,7 +50,7 @@ function handleFormSubmission(event) {
   const title = $("#enterTitle").val().trim();
   const content = $("#enterContent").val().trim();
 
-  // Validate inputs
+  
   if (!title || !content) {
     alert("Please fill out all required fields.");
     return;
@@ -61,9 +59,9 @@ function handleFormSubmission(event) {
   const storyData = { title, content };
 
   if (storyId) {
-    // Update existing story
+    
     $.ajax({
-      url: apiUrl + "/" + storyId, // Corrected
+      url: apiUrl + "/" + storyId, 
       method: "PUT",
       contentType: "application/json",
       data: JSON.stringify(storyData),
@@ -77,7 +75,7 @@ function handleFormSubmission(event) {
       },
     });
   } else {
-    // Add new story
+    
     $.ajax({
       url: apiUrl,
       method: "POST",
@@ -95,12 +93,11 @@ function handleFormSubmission(event) {
   }
 }
 
-// Handle story deletion
 function handleDeleteStory() {
   const storyId = $(this).data("id");
 
   $.ajax({
-    url: apiUrl + "/" + storyId, // Corrected
+    url: apiUrl + "/" + storyId, 
     method: "DELETE",
     success: function () {
       displayStories();
@@ -142,7 +139,7 @@ function clearForm() {
   $("#clearBtn").hide();
 }
 
-// Initialize event listeners
+// Initia
 $(document).ready(function () {
   displayStories();
 
