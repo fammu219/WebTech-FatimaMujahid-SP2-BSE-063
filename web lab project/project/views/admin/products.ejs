@@ -1,0 +1,232 @@
+<style>/* General styles for the entire page */
+  body {
+    font-family: Arial, sans-serif;
+    font-size: 14px; /* Small font size for all text */
+    background-color: grey; /* Grey background for the entire page */
+    color: green; /* Green text for contrast */
+    margin: 20px;
+    line-height: 1.4;
+  }
+  
+  /* Heading styles */
+  h2 {
+    font-size: 16px; /* Smaller size */
+    color: green; /* Green text color */
+    background-color: #d3d3d3; /* Light grey background */
+    text-align: center;
+    border-bottom: 2px solid green;
+    padding: 5px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+  }
+  
+  /* Form styles */
+  form {
+    font-size: 14px; /* Smaller font size */
+    padding: 10px;
+    background-color: #d3d3d3; /* Light grey background */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 15px;
+  }
+  
+  /* Input and select styles */
+  form input[type="text"],
+  form input[type="number"],
+  form select {
+    font-size: 14px; /* Smaller font size */
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+  }
+  
+  form button {
+    font-size: 14px; /* Smaller font size */
+    padding: 8px 12px;
+    background-color: green;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  form button:hover {
+    background-color: darkgreen;
+  }
+  
+  ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul li {
+  padding: 10px;
+  background-color: white;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+ul li a {
+  color: black;
+  text-decoration: none;
+}
+
+ul li a:hover {
+  text-decoration: underline;
+}
+
+ul li form {
+  display: inline;
+}
+
+ul li form button {
+  background-color:black;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+ul li form button:hover {
+  background-color:black;
+}
+
+.pagination {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+}
+
+.page-item {
+  margin: 0 5px;
+}
+
+.page-link {
+  text-decoration: none;
+  padding: 8px 12px;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.page-item.disabled .page-link,
+.page-item.active .page-link {
+  pointer-events: none;
+  background-color: #e0e0e0;
+  color: #999;
+}
+
+.page-item.active .page-link {
+  background-color: #4CAF50;
+  color: white;
+  border-color: #4CAF50;
+}
+
+.page-item:hover .page-link {
+  background-color: #f1f1f1;
+}
+
+.page-item.active:hover .page-link {
+  background-color: #45a049;
+}
+
+  </style>
+
+<h2>Products</h2>
+
+<!-- Form to add a new product -->
+<form action="/admin/products" method="POST">
+  <input type="text" name="name" placeholder="Product Name" required>
+  <input type="number" name="price" placeholder="Price" required>
+  <button type="submit">Add Product</button>
+</form>
+
+<!-- Search, Sort, and Filter Form -->
+<form method="GET" action="/admin/products">
+  <div>
+    <!-- Search Bar -->
+    <input type="text" name="search" placeholder="Search Products" value="<%= searchQuery %>" />
+
+    <!-- Sort Dropdown -->
+    <select name="sort">
+      <option value="name" <%= sortField === "name" ? "selected" : "" %>>Name</option>
+      <option value="price" <%= sortField === "price" ? "selected" : "" %>>Price</option>
+    </select>
+
+    <!-- Sort Order -->
+    <select name="order">
+      <option value="asc" <%= sortOrder === "asc" ? "selected" : "" %>>Ascending</option>
+      <option value="desc" <%= sortOrder === "desc" ? "selected" : "" %>>Descending</option>
+    </select>
+
+    <!-- Price Filter -->
+    <input type="number" name="price" placeholder="Max Price" value="<%= priceFilter %>" />
+
+    <button type="submit">Apply</button>
+  </div>
+</form>
+
+<!-- List of Products -->
+<ul>
+  <% if (products.length > 0) { %>
+    <% for (let product of products) { %>
+      <li>
+        <%= product.name %> - $<%= product.price %>
+        <a href="/admin/products/edit/<%= product._id %>">Edit</a>
+      <form action="/admin/products/delete/<%= product  ._id %>" method="POST" style="display:inline;">
+          <button type="submit">Delete</button>
+        </form>
+      </li>
+    <% } %>
+  <% } else { %>
+    <li>No products found.</li>
+  <% } %>
+
+  
+</ul>
+
+<!-- Pagination -->
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <!-- Previous Button -->
+    <li class="page-item <%= page == 1 ? 'disabled' : '' %>">
+      <a class="page-link" href="/admin/products?page=<%= page - 1 %>&search=<%= searchQuery %>&sort=<%= sortField %>&order=<%= sortOrder %>&price=<%= priceFilter %>">
+        Previous
+      </a>
+    </li>
+
+    <!--multer-->
+    <form>
+      <input type="file" name="profileImage" />
+      <button type="submit"> Upload </button>
+    </form>
+
+
+
+    <!-- Page Numbers -->
+    <% for (let i = 1; i <= totalPages; i++) { %>
+      <li class="page-item <%= page == i ? 'active' : '' %>">
+        <a class="page-link" href="/admin/products?page=<%= i %>&search=<%= searchQuery %>&sort=<%= sortField %>&order=<%= sortOrder %>&price=<%= priceFilter %>">
+          <%= i %>
+        </a>
+      </li>
+    <% } %>
+
+    <!-- Next Button -->
+    <li class="page-item <%= page == totalPages ? 'disabled' : '' %>">
+      <a class="page-link" href="/admin/products?page=<%= page + 1 %>&search=<%= searchQuery %>&sort=<%= sortField %>&order=<%= sortOrder %>&price=<%= priceFilter %>">
+        Next
+      </a>
+    </li>
+  </ul>
+</nav>
+

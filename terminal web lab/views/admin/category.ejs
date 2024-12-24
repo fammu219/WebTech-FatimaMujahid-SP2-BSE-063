@@ -1,0 +1,165 @@
+<style>/* Styling for the h2 element */
+    /* Basic body styling */
+body {
+    font-family: Arial, sans-serif;
+    font-size: 14px; /* Small font size for all text */
+    background-color: grey; /* Grey background for the entire page */
+    color: green; /* Green text for contrast */
+    margin: 20px;
+    line-height: 1.4;
+}
+
+/* Heading styles */
+h2 {
+    font-size: 16px; /* Smaller size */
+    color: green; /* Green text color */
+    background-color: #d3d3d3; /* Light grey background */
+    text-align: center;
+    border-bottom: 2px solid green;
+    padding: 5px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+/* Form styles */
+form {
+    font-size: 14px; /* Smaller font size */
+    padding: 10px;
+    background-color: #d3d3d3; /* Light grey background */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+form input[type="text"],
+form input[type="number"],
+form select {
+    font-size: 14px; /* Smaller font size */
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+}
+
+form button {
+    font-size: 14px; /* Smaller font size */
+    padding: 8px 12px;
+    background-color: green;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: darkgreen;
+}
+
+/* Unordered list styles */
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul li {
+    padding: 10px;
+    background-color: white;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+ul li a {
+    color: black;
+    text-decoration: none;
+}
+
+ul li a:hover {
+    text-decoration: underline;
+}
+
+ul li form {
+    display: inline;
+}
+
+ul li form button {
+    background-color: black;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+ul li form button:hover {
+    background-color: black;
+}
+
+/* Pagination styles */
+.pagination {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+}
+
+.page-item {
+    margin: 0 5px;
+}
+
+.page-link {
+    text-decoration: none;
+    padding: 8px 12px;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.page-item.disabled .page-link,
+.page-item.active .page-link {
+    pointer-events: none;
+    background-color: #e0e0e0;
+    color: #999;
+}
+
+.page-item.active .page-link {
+    background-color: #4CAF50;
+    color: white;
+    border-color: #4CAF50;
+}
+
+.page-item:hover .page-link {
+    background-color: #f1f1f1;
+}
+
+.page-item.active:hover .page-link {
+    background-color: #45a049;
+}
+
+    </style>
+<h2>Orders</h2>
+
+<!-- Form to add new category -->
+<form action="/admin/category" method="POST">
+    <input type="text" name="title" placeholder="add custom order" required>
+    <button type="submit">Add a new Order</button>
+</form>
+
+<!-- List of category with Edit and Delete options -->
+<ul>
+    <% for(index=0;index<category.length;index++){ %>
+        <li>
+            <%= category[index].title %>
+            
+            <!-- Edit Button -->
+            <a href="/admin/category/edit/<%= category[index]._id %>" >Edit</a>
+            <a href="/admin/category/pay-with-cash/<%= category[index]._id %>" >Pay with Cash</a>
+            <a href="/admin/category/delete/<%= category[index]._id %>"  >Delete</a>
+        </li>
+    <% } %>
+</ul>

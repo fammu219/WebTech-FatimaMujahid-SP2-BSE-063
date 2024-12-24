@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signup</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    form {
+      background: #fff;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      width: 350px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #444;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .register-option {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .register-option a {
+      text-decoration: none;
+      color: #007BFF;
+      font-weight: bold;
+    }
+
+    .register-option a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <form action="/signup" method="post">
+    <h1>Signup</h1>
+
+    <label for="name">Full Name</label>
+    <input type="text" id="name" required name="name" />
+
+    <label for="email">Email</label>
+    <input type="email" id="email" required name="email" />
+
+    <label for="password">Password</label>
+    <input type="password" id="password" required name="password" />
+
+    <label for="role">Role</label>
+    <select id="role" name="role" required>
+      <option value="customer">Customer</option>
+      <option value="admin">Admin</option>
+    </select>
+
+    <button type="submit">Signup</button>
+
+    <!-- Option to login -->
+    <div class="register-option">
+      Already have an account? <a href="/login">Login</a>
+    </div>
+  </form>
+</body>
+</html>

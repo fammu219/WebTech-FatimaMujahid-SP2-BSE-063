@@ -1,0 +1,155 @@
+<style>
+    /* Basic body styling */
+body {
+    font-family: Arial, sans-serif;
+    font-size: 14px; /* Small font size for all text */
+    background-color: gray; /* Grey background for the entire page */
+    color: green; /* Green text for contrast */
+    margin: 20px;
+    line-height: 1.4;
+}
+
+/* Heading styles */
+h2 {
+    font-size: 24px; /* Larger size */
+    color: green; /* Green text color */
+    background-color: gray; /* Light grey background */
+    text-align: center;
+    border-bottom: 2px solid green;
+    padding: 5px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+p {
+    font-size: 16px; /* Medium size */
+    color: green; /* Green text color */
+    text-align: center;
+    background-color: gray;
+    
+}
+
+/* Form styles */
+form {
+    font-size: 14px; /* Smaller font size */
+    padding: 10px;
+    background-color: gray; /* Light grey background */
+    border: 1px solid #ccc;
+    
+}
+
+form input[type="text"],
+form input[type="number"],
+form select {
+    font-size: 14px; /* Smaller font size */
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+}
+
+form button {
+    font-size: 14px; /* Smaller font size */
+    padding: 8px 12px;
+    background-color: green;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: darkgreen;
+}
+
+/* Unordered list styles */
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul li {
+    padding: 10px;
+    background-color: white;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    display: flex;
+    
+    align-items: center;
+}
+
+ul li a {
+    color: black;
+    text-decoration: none;
+}
+
+ul li a:hover {
+    text-decoration: underline;
+}
+
+ul li form {
+    display: inline;
+}
+
+ul li form button {
+    background-color: black;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+ul li form button:hover {
+    background-color: black;
+}
+
+/* Pagination styles */
+.pagination {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+}
+
+.page-item {
+    margin: 0 5px;
+}
+
+.page-link {
+    text-decoration: none;
+    padding: 8px 12px;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.page-item.disabled .page-link,
+.page-item.active .page-link {
+    pointer-events: none;
+    background-color: #e0e0e0;
+    color: #999;
+}
+
+.page-item.active .page-link {
+    background-color: #4CAF50;
+    color: grey;
+    border-color: #4CAF50;
+}
+
+.page-item:hover .page-link {
+    background-color:grey;
+}
+
+.page-item.active:hover .page-link {
+    background-color: #45a049;
+}
+
+</style>
+
+<h2>Welcome to the Admin Dashboard</h2>
+<p>Manage your products and categories here.</p>
+

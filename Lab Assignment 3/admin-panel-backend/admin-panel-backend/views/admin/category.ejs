@@ -1,0 +1,11 @@
+<h2>Categories</h2>
+<form action="/admin/categories" method="POST">
+    <input type="text" name="title" placeholder="Category Title" required>
+    <button type="submit">Add Category</button>
+</form>
+<ul>
+    <% categories.forEach(category => { %>
+        <li><%= category.title %></li>
+    <% }) %>
+</ul>
+
