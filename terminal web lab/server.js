@@ -4,29 +4,32 @@ const mongoose = require("mongoose");
 const expressLayouts = require("express-ejs-layouts");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const passport = require("passport");
+const flash = require("connect-flash");
 
-const flash = require('connect-flash');
-
-// Initialize Express App
-const app = express();
-
-// Routes and Controllers
-const userController = require("./controllers/user");
+// Routes
+const userRoutes = require("./routes/userRoutes");
+const productRoutes = require("./routes/productRoutes");
+const wishlistRoutes = require("./routes/wishlistRoutes");
 const adminRoutes = require("./routes/adminRoutes");
-const urlRoute = require("./controllers/url");
 
 // Middleware
 const { restrictToLoggedinUserOnly, checkAuth } = require("./middlewares/auth");
 
+// Passport Configuration
+require("./config/passportConfig")(passport);
+
 // MongoDB Connection
-const connectionString = "mongodb://127.0.0.1:27017/temp";
 mongoose
-  .connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log(`Connected to MongoDB: ${connectionString}`))
-  .catch((err) => {
-    console.error("Database connection error:", err.message);
-    process.exit(1);
-  });
+  .connect("mongodb://localhost:27017/ecommerce", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("MongoDB Connected"))
+  .catch((err) => console.log("Database connection error:", err.message));
+
+// Initialize Express App
+const app = express();
 
 // Middleware Setup
 app.use(express.urlencoded({ extended: true })); // Parse form data
@@ -41,39 +44,43 @@ app.use(
     saveUninitialized: true,
   })
 );
-app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash()); // Flash messages
 
 // Make flash messages available in all views
 app.use((req, res, next) => {
   res.locals.flashMessages = {
-      success: req.flash('success'),
-      error: req.flash('error'),
+    success: req.flash("success"),
+    error: req.flash("error"),
   };
+  res.locals.user = req.user || null; // User info available globally in views
   next();
-});
-
-app.post('/test-flash', (req, res) => {
-  req.flash('success', 'Item added to cart successfully.');
-  res.redirect('/home'); // Redirect to where you want to display the message
 });
 
 // View Engine Setup
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-// Route Middleware Setup
-app.use(userController); // User routes
+// Routes
+app.use("/users", userRoutes); // User routes
+app.use("/products", productRoutes); // Product routes
+app.use("/wishlist", wishlistRoutes); // Wishlist routes
 app.use("/admin", adminRoutes); // Admin routes
 
-// Authentication-related Routes
+// Home and Authentication Routes
+app.get("/", (req, res) => res.redirect("/products"));
 app.get("/signup", (req, res) => {
   res.render("signup", { layout: "homeLayout" });
 });
 app.get("/login", (req, res) => {
   res.render("login", { layout: "homeLayout" });
 });
+app.get("/home", restrictToLoggedinUserOnly, (req, res) => {
+  res.render("user/home", { layout: "homeLayout" });
+});
 
-// Short URL Redirect Route
+// Short URL Redirect Route (if required)
 app.get("/url/:shortId", async (req, res) => {
   const shortId = req.params.shortId;
   try {
@@ -95,20 +102,7 @@ app.get("/url/:shortId", async (req, res) => {
   }
 });
 
-// Home and User Routes
-app.get("/", (req, res) => {
-  res.render("login", { layout: "homeLayout" });
-});
-
-app.get("/home", restrictToLoggedinUserOnly, (req, res) => {
-  res.render("user/home", { layout: "homeLayout" });
-});
-
-app.get("/admin/products", restrictToLoggedinUserOnly, (req, res) => {
-  res.render("admin/products", { layout: "layout" });
-});
-
-// Error Handling admin
+// Error Handling
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).render("error", { message: "Something went wrong!" });
@@ -120,7 +114,7 @@ app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
 
-// Graceful Shutdown for Database Connection
+// Graceful Shutdown
 process.on("SIGINT", async () => {
   await mongoose.connection.close();
   console.log("Database connection closed.");

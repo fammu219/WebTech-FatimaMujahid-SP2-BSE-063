@@ -143,6 +143,24 @@ ul li form button:hover {
 
 <h2>Products</h2>
 
+<h1>Products</h1>
+<% products.forEach(product => { %>
+    <div>
+        <h3><%= product.name %></h3>
+        <p>Price: $<%= product.price %></p>
+        <% if (user) { %>
+            <form action="/wishlist/add" method="POST">
+                <input type="hidden" name="productId" value="<%= product._id %>">
+                <button type="submit">Add to Wishlist</button>
+            </form>
+        <% } else { %>
+            <button onclick="alert('Please log in to add items to your wishlist')">Add to Wishlist</button>
+        <% } %>
+    </div>
+<% }); %>
+
+
+
 <!-- Form to add a new product -->
 <form action="/admin/products" method="POST">
   <input type="text" name="name" placeholder="Product Name" required>

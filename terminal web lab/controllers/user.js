@@ -1,5 +1,5 @@
 const { v4: uuidv4 } = require("uuid");
-const User = require("../models/user");
+const User = require("../controller/user");
 const { setUser } = require("../service/auth");
 const express=require("express");
 const router=express.Router();

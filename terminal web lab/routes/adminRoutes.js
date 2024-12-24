@@ -18,24 +18,24 @@ adminRouter.post("/category/add", async (req, res) => {
   try {
     const { itemId, categoryId } = req.body;
 
-    let cartItem = await Cart.findOne({ itemId, category: categoryId });
+    let WishlistItem = await Cart.findOne({ itemId, category: categoryId });
 
-    if (cartItem) {
-      cartItem.quantity += 1;
-      await cartItem.save();
+    if (WishlistItem) {
+      WishlistItemItem.quantity += 1;
+      await WishlistItem.save();
       req.flash('success', 'Item quantity updated.');
     } else {
-      cartItem = await Cart.create({ itemId, category: categoryId });
-      req.flash('success', 'Item added to cart.');
+      wishlistItem = await Wishlist.create({ itemId, category: categoryId });
+      req.flash('success', 'Item added to Wishlist.');
     }
 
-    const cartCount = await Cart.countDocuments();
-    res.json({ cartCount });
+    const WishlistCount = await Wishlist.countDocuments();
+    res.json({ WishlistItemCount });
 
   } catch (err) {
-    console.error("Error adding to cart:", err);
-    req.flash('error', 'Failed to add to cart.');
-    res.status(500).json({ error: "Failed to add to cart." });
+    console.error("Error adding to Wishlist:", err);
+    req.flash('error', 'Failed to add to Wishlist.');
+    res.status(500).json({ error: "Failed to add to Wishlist." });
   }
 });
 
